@@ -422,8 +422,8 @@
             <h2>核心功能亮点</h2>
             <h3>1️⃣ 动态协作与AI交互</h3>
             <ul>
-                <li><strong>Builder模式：</strong>通过自然语言描述需求，AI自动生成完整项目框架</li>
-                <li><strong>Chat模式：</strong>支持实时问答、代码解释、错误修复，提供多模态交互</li>
+                <li><strong>IDE模式：</strong>通过自然语言描述需求，AI自动生成完整项目框架</li>
+                <li><strong>solo模式：</strong>支持实时问答、代码解释、错误修复，提供多模态交互</li>
             </ul>
             <h3 style="margin-top: 25px;">2️⃣ 智能化编码支持</h3>
             <ul>
@@ -434,7 +434,7 @@
             <ul>
                 <li>支持图片上传生成代码（如设计草图转前端页面）</li>
                 <li>IDE内直接预览Web页面效果</li>
-                <li>目前支持macOS，Windows版本正在开发中</li>
+                <li>目前支持windows, macOS，Linux版本正在开发中</li>
             </ul>
         </div>
 
@@ -481,7 +481,7 @@
 
         <div class="slide">
             <div class="slide-number">6 / 9</div>
-            <h2>重要插件介绍</h2>
+            <h2>插件种类介绍</h2>
             <p>TRAE支持丰富的插件生态，以下是几个核心插件：</p>
             <div class="content-grid">
                 <div class="card">
@@ -512,7 +512,63 @@
         </div>
 
         <div class="slide">
-            <div class="slide-number">7 / 9</div>
+            <div class="slide-number">7 / 10</div>
+            <h2>重要插件介绍</h2>
+            <p>TRAE支持多种实用插件，以下是几个重点推荐：</p>
+            <div class="content-grid">
+                <div class="card">
+                    <h4>📄 1. Mintlify 代码转换文档</h4>
+                    <p>将代码自动转换为文档，生成清晰的API文档和使用说明，提高代码可维护性</p>
+                </div>
+                <div class="card">
+                    <h4>📋 2. Kimi 长文档提炼</h4>
+                    <p>快速总结长文档内容，提取重点信息，生成摘要，提高阅读效率</p>
+                </div>
+                <div class="card">
+                    <h4>🐛 3. DeepSeek 调试分析</h4>
+                    <p>自动分析代码错误，查找Bug原因，提供修复建议，加速调试过程</p>
+                </div>
+                <div class="card">
+                    <h4>❌ 4. CodeWhisperer (Amazon)</h4>
+                    <p>注意：此插件目前不可用</p>
+                </div>
+                <div class="card" style="grid-column: span 2;">
+                    <h4>💡 5. Tabnine</h4>
+                    <p>智能代码补全插件，需购买使用，提供高级代码预测功能</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">8 / 11</div>
+            <h2>Skills技能</h2>
+            <p>TRAE的Skills功能允许用户创建和使用自定义技能，扩展IDE的能力，让trae用有记忆：</p>
+            <div class="content-grid">
+                <div class="card">
+                    <h4>🛠️ 创建技能</h4>
+                    <p>设置->规则和技能，创建自定义技能或导入github下载技能</p>
+                </div>
+                <div class="card">
+                    <h4>📦 技能管理</h4>
+                    <p>在技能中心管理已创建的技能，包括启用、禁用、编辑和删除</p>
+                </div>
+                <div class="card">
+                    <h4>🔄 技能调用</h4>
+                    <p>在对话中显式调用或者对话会自动根据描述调用</p>
+                </div>
+                <div class="card">
+                    <h4>🌐 技能共享</h4>
+                    <p>将创建的技能分享给团队成员，实现协作开发</p>
+                </div>
+                <div class="card" style="grid-column: span 2;">
+                    <h4>💡 技能示例pptx</h4>
+                    <p><a href="https://github.com/anthropics/skills" target="_blank" style="color: #667eea; text-decoration: underline;">https://github.com/anthropics/skills</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">9 / 11</div>
             <h2>典型应用场景</h2>
             <div class="content-grid">
                 <div class="card">
@@ -539,13 +595,14 @@
         </div>
 
         <div class="slide">
-            <div class="slide-number">8 / 9</div>
+            <div class="slide-number">10 / 11</div>
             <h2>集成的AI模型</h2>
             <div class="content-grid">
                 <div class="card">
                     <h4>🇨🇳 国内版模型</h4>
                     <p><span class="tag">豆包1.5 Pro</span></p>
-                    <p><span class="tag">DeepSeek R1</span></p>
+                    <p><span class="tag">GLM-4.7</span></p>
+                    <p><span class="tag">Minimax-2.5</span></p>
                     <p><span class="tag">DeepSeek V3</span></p>
                     <p style="margin-top: 10px;">支持满血版推理能力</p>
                 </div>
@@ -564,12 +621,12 @@
             </div>
             <div class="case-study">
                 <h4>案例二：俄罗斯方块游戏</h4>
-                <p>通过Builder模式输入需求，自动生成包含7种经典形状、颜色区分、键盘控制的完整游戏代码</p>
+                <p>通过SOLO模式输入需求，自动生成包含7种经典形状、颜色区分、键盘控制的完整游戏代码</p>
             </div>
         </div>
 
         <div class="slide">
-            <div class="slide-number">9 / 9</div>
+            <div class="slide-number">11 / 11</div>
             <h2>总结</h2>
             <p>TRAE作为国内首个AI原生集成开发环境，通过以下核心优势为开发者赋能：</p>
             <ul>
