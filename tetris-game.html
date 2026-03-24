@@ -261,16 +261,85 @@
             }
         }
         
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+        
+        function lightenColor(color, percent) {
+            const rgb = hexToRgb(color);
+            if (!rgb) return color;
+            
+            const amt = Math.round(2.55 * percent);
+            const r = Math.min(255, rgb.r + amt);
+            const g = Math.min(255, rgb.g + amt);
+            const b = Math.min(255, rgb.b + amt);
+            
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+        
+        function darkenColor(color, percent) {
+            const rgb = hexToRgb(color);
+            if (!rgb) return color;
+            
+            const amt = Math.round(2.55 * percent);
+            const r = Math.max(0, rgb.r - amt);
+            const g = Math.max(0, rgb.g - amt);
+            const b = Math.max(0, rgb.b - amt);
+            
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+        
         function drawBlock(context, x, y, color) {
-            context.fillStyle = color;
-            context.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+            const size = BLOCK_SIZE;
+            const px = x * size;
+            const py = y * size;
             
-            context.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            // 创建渐变效果
+            const gradient = context.createLinearGradient(px, py, px + size, py + size);
+            gradient.addColorStop(0, lightenColor(color, 40));
+            gradient.addColorStop(0.3, lightenColor(color, 20));
+            gradient.addColorStop(0.7, color);
+            gradient.addColorStop(1, darkenColor(color, 30));
+            
+            // 绘制主方块
+            context.fillStyle = gradient;
+            context.fillRect(px, py, size, size);
+            
+            // 添加内阴影效果
+            context.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            context.fillRect(px + 2, py + size - 5, size - 4, 3);
+            context.fillRect(px + size - 5, py + 2, 3, size - 4);
+            
+            // 添加高光效果
+            const highlightGradient = context.createLinearGradient(px, py, px + size, py + size);
+            highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
+            highlightGradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.2)');
+            highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            context.fillStyle = highlightGradient;
+            context.fillRect(px + 4, py + 4, size - 8, size - 8);
+            
+            // 添加边框
+            context.strokeStyle = lightenColor(color, 60);
             context.lineWidth = 2;
-            context.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+            context.strokeRect(px, py, size, size);
             
-            context.fillStyle = 'rgba(255, 255, 255, 0.2)';
-            context.fillRect(x * BLOCK_SIZE + 2, y * BLOCK_SIZE + 2, BLOCK_SIZE - 4, BLOCK_SIZE - 4);
+            // 添加外发光效果
+            context.shadowColor = color;
+            context.shadowBlur = 10;
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+            context.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            context.lineWidth = 1;
+            context.strokeRect(px + 1, py + 1, size - 2, size - 2);
+            
+            // 重置阴影
+            context.shadowBlur = 0;
         }
         
         function drawBoard() {
@@ -307,22 +376,7 @@
                 nextPiece.shape.forEach((row, r) => {
                     row.forEach((value, c) => {
                         if (value !== 0) {
-                            nextCtx.fillStyle = COLORS[nextPiece.color];
-                            nextCtx.fillRect(
-                                (offsetX + c) * BLOCK_SIZE, 
-                                (offsetY + r) * BLOCK_SIZE, 
-                                BLOCK_SIZE, 
-                                BLOCK_SIZE
-                            );
-                            
-                            nextCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-                            nextCtx.lineWidth = 2;
-                            nextCtx.strokeRect(
-                                (offsetX + c) * BLOCK_SIZE, 
-                                (offsetY + r) * BLOCK_SIZE, 
-                                BLOCK_SIZE, 
-                                BLOCK_SIZE
-                            );
+                            drawBlock(nextCtx, offsetX + c, offsetY + r, COLORS[nextPiece.color]);
                         }
                     });
                 });
